@@ -1,9 +1,11 @@
 package main
 
 import (
-    "strconv"
-    "unicode"
+	"fmt"
+	"strconv"
+	"unicode"
 )
+
 // create the func as a card number.
 // receive the num as a string as they have always have spaces
 
@@ -16,15 +18,20 @@ func validate(cn string) bool {
             ss += string(r)
         }
     }
+     // setup 
     var sum int64 = 0
     parity := len(ss) % 2
-
-    for i, v := range ss {
+    
+    cardNumWithoutChecksum := ss[:len(ss)-1]
+    // converts each string to int
+    for i, v := range cardNumWithoutChecksum {
         item, err := strconv.Atoi(string(v))
 
         if err != nil {
-         return false        
-     }
+            fmt.Println(err)
+            return false        
+        }
+    // apply formula
     if int64(i)%2 != int64(parity) {
         sum += int64(item)
     } else if item > 4 {
@@ -33,8 +40,22 @@ func validate(cn string) bool {
         sum += int64(2* item)
     }
     }
-    return sum%10 == 0
+    checkDigit, err := strconv.Atoi(ss[len(ss)-1:])
+
+    if err != nil {
+        fmt.Println(err)
+        return false
+    }
+     SumMod := sum % 10
+
+     if SumMod == int64(0) {
+         return SumMod == int64(checkDigit)
+     }
+     return int64(10)-SumMod == int64(checkDigit)
+
 }
-
-
+func main(){
+    isValid := validate("4000056655665556")
+    fmt.Println(isValid)
+}
 
