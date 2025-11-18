@@ -18,7 +18,7 @@ func TestFunc(t *testing.T){
         t.Errorf("%v you should have a valid", i)
     }
     if Validateluhn(i/10) != i%10{
-        t.Errorf("bro's check number should be %v, but got v% instead",i,i%10, Validateluhn(i/10))
+        t.Errorf("%v's check number should be %v, but got %v instead", i, i%10, Validateluhn(i/10))
     }
 
 }
