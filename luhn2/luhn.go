@@ -8,8 +8,7 @@ func Validateluhn(number int) int {
     if checkNum == 0 {
         return 0
     }
-    return 10 - checkNum
-    
+    return 10 - checkNum   
 }
 
 // check if valid or not based on luhn algorithm
@@ -20,7 +19,7 @@ func Valid(number int) bool {
 func checksum(number int) int {
     var luhn2 int
 
-    for _, i:= 0, number > 0; i++ {
+    for i:= 0; number > 0; i++ {
         rem := number % 10
 
         if i%2 == 0 { // meaning even

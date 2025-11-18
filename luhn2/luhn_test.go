@@ -15,10 +15,10 @@ func TestFunc(t *testing.T){
     }
     for _, i := range validNum{
         if !Valid(i){
-        t.Error("%v you should have a valid", i)
+        t.Errorf("%v you should have a valid", i)
     }
     if Validateluhn(i/10) != i%10{
-        t.Error("%v's bro check your number it should be %v",i,i%10, Validateluhn(i/10))
+        t.Errorf("bro's check number should be %v, but got v% instead",i,i%10, Validateluhn(i/10))
     }
 
 }
