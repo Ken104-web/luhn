@@ -2,11 +2,9 @@ package luhn2
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strconv"
 
-	"golang.org/x/tools/go/analysis/passes/nilfunc"
 )
 
 // card type constants
@@ -34,9 +32,13 @@ func IsCnValid(cn string) (bool, string){
     cardType, err := getCardType(cn)
     if err != nil{
         return false, ""
-    } else {
-        return Valid(getIntArrayFromStr(cn)), cardType
     }
+    rawNum, err := getIntArrayFromStr(cn)
+    if err != nil{
+        return false, ""
+    }
+    return Valid(rawNum), cardType
+    
 }
 // func returns a cn type on success and an err on faliure
 
@@ -72,7 +74,7 @@ func Validateluhn(number int) int {
 }
 func checksum(number int) int {
     var luhn2 int
-
+    debugPrintf("working")
     for i:= 0; number > 0; i++ {
         rem := number % 10
 
@@ -87,12 +89,14 @@ func checksum(number int) int {
     }
     return luhn2 % 10
 }
+
 // checks & converts string to int
 // Take the cn num as str
 // remove the last digit
 // convert remainig digits to int
 // then return it
 func getIntArrayFromStr(s string) (int, error){
+    debugPrintf("working")
     res := s[:len(s)-1]
     // convertion
     item, err := strconv.Atoi(res)
