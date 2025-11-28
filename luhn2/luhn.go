@@ -31,7 +31,7 @@ func IsCnValid(cn string) (bool, string){
     if err != nil{
         return false, ""
     } else {
-        return Valid(cn), cardType
+        return Valid(getIntArrayFromStr(cn)), cardType
     }
 }
 // func returns a cn type on success and an err on faliure
@@ -54,6 +54,11 @@ func getCardType(cn string) (string, error) {
 
 
 
+// check if valid or not based on luhn algorithm
+func Valid(number int) bool {
+    return  (number%10+checksum(number/10))%10 == 0
+}
+// checks the lat digit after computing 0-9 in checkSum
 func Validateluhn(number int) int {
     checkNum := checksum(number)
     if checkNum == 0 {
@@ -61,12 +66,6 @@ func Validateluhn(number int) int {
     }
     return 10 - checkNum   
 }
-
-// check if valid or not based on luhn algorithm
-func Valid(number int) bool {
-    return  (number%10+checksum(number/10))%10 == 0
-}
-
 func checksum(number int) int {
     var luhn2 int
 
@@ -83,4 +82,12 @@ func checksum(number int) int {
         number = number / 10
     }
     return luhn2 % 10
+}
+// checks & converts string to int
+func getIntArrayFromStr(s string) []int{
+    res := make([]int, len(s))
+    for i, u := range s{
+        res[i] = int(u - '0')
+    }
+    return res
 }
