@@ -2,12 +2,13 @@ package luhn2
 
 import (
     "regexp"
+    "errors"
 ) 
 
 // card type constants
 
 const (
-    MASTERCARD = "AMEX"
+    MASTERCARD = "MASTERCARD"
     VISA = "VISA"
     DISCOVER = "DISCOVER"
     UNSUPPORTED = "UNSUPPORTED"
@@ -18,7 +19,7 @@ const (
 func SupportedCardNetworks() map[string]string{
     return map[string]string{
         MASTERCARD: "^5[1 2 3 4 5]\\d{14}$",
-        VISA: "4(?:\\d{12}|\\d{15})$",
+        VISA: "^4(?:\\d{12}|\\d{15})$",
         DISCOVER: "^6011\\d{12}$",
     }
 }
@@ -37,6 +38,18 @@ func IsCnValid(cn string) (bool, string){
 
 func getCardType(cn string) (string, error) {
     networkName, same := UNSUPPORTED, false
+    for n, p := range SupportedCardNetworks(){
+        exp := regexp.MustCompile(p)
+        if exp.MatchString(cn){
+            networkName, same = n, true
+            break
+        }
+    }
+    if same{
+        return networkName, nil
+    } else{
+        return "", errors.New(UNSUPPORTED)
+    }
 }
 
 
