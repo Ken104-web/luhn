@@ -1,5 +1,43 @@
 package luhn2
 
+import (
+    "regexp"
+) 
+
+// card type constants
+
+const (
+    MASTERCARD = "AMEX"
+    VISA = "VISA"
+    DISCOVER = "DISCOVER"
+    UNSUPPORTED = "UNSUPPORTED"
+)
+
+// returns regex patterns for supported card networks
+
+func SupportedCardNetworks() map[string]string{
+    return map[string]string{
+        MASTERCARD: "^5[1 2 3 4 5]\\d{14}$",
+        VISA: "4(?:\\d{12}|\\d{15})$",
+        DISCOVER: "^6011\\d{12}$",
+    }
+}
+
+// func return (true, card type) on success else return (false, "")
+
+func IsCnValid(cn string) (bool, string){
+    cardType, err := getCardType(cn)
+    if err != nil{
+        return false, ""
+    } else {
+        return Valid(cn), cardType
+    }
+}
+// func returns a cn type on success and an err on faliure
+
+func getCardType(cn string) (string, error) {
+    networkName, same := UNSUPPORTED, false
+}
 
 
 
