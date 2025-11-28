@@ -1,9 +1,13 @@
 package luhn2
 
 import (
-    "regexp"
-    "errors"
-) 
+	"errors"
+	"fmt"
+	"regexp"
+	"strconv"
+
+	"golang.org/x/tools/go/analysis/passes/nilfunc"
+)
 
 // card type constants
 
@@ -84,10 +88,24 @@ func checksum(number int) int {
     return luhn2 % 10
 }
 // checks & converts string to int
-func getIntArrayFromStr(s string) []int{
-    res := make([]int, len(s))
-    for i, u := range s{
-        res[i] = int(u - '0')
+// Take the cn num as str
+// remove the last digit
+// convert remainig digits to int
+// then return it
+func getIntArrayFromStr(s string) (int, error){
+    res := s[:len(s)-1]
+    // convertion
+    item, err := strconv.Atoi(res)
+    if err != nil {
+        return 0, err
     }
-    return res
+    return item, nil 
 }
+
+// func getIntArrayFromStr(s string) int {
+//     res := make(int, len(s))
+//     for i, u := range s{
+//         res[i] = int(u - '0')
+//     }
+//     return res
+// }
