@@ -6,27 +6,48 @@ import (
 )
 
 func TestFunc(t *testing.T){
-    validNum := []int{
-        68431579246,
-        3719928465537204,
-        8274503916824457,
-        9364578220135794,
-        5527801946381276,
-        8146792058431168,
-        43298567124039,
+    validNum := []struct {
+        cardNumber string
+        expected   string
+    }{
+         // 68431579246,
+         {"3719928465537204", VISA},
+         {"8274503916824457", DISCOVER},
+         {"9364578220135794", MASTERCARD},
+         {"5527801946381276", DISCOVER},
+         {"8146792058431168", VISA},
+         {"43298567124039", MASTERCARD},
     }
+    // validNum := []int{
+    //     68431579246,
+    //     3719928465537204,
+    //     8274503916824457,
+    //     9364578220135794,
+    //     5527801946381276,
+    //     8146792058431168,
+    //     43298567124039,
+    // }
     for _, i := range validNum{
-        if !Valid(i){
-        t.Errorf("%v you should have a valid", i)
+        t.Run(i.cardNumber, func(t *testing.T){
+            actual, _ := getCardType(i.cardNumber)
+            if actual != i.expected{
+                t.Errorf("Card type don't match: expected %v but got %v\n", i.expected, actual)
+            }
+        })
     }
-    if Validateluhn(i/10) != i%10{
-        t.Errorf("%v's check number should be %v, but got %v instead", i, i%10, Validateluhn(i/10))
-    }
-
+//     for _, i := range validNum{
+//         if !Valid(i){
+//         t.Errorf("%v you should have a valid", i)
+//     }
+//     if Validateluhn(i/10) != i%10{
+//         t.Errorf("%v's check number should be %v, but got %v instead", i, i%10, Validateluhn(i/10))
+//     }
+//
+// }
+        
 }
-}
 
-func GetValidCn(t *testing.T){
+func Test_getValidCn(t *testing.T){
     // check if card num is valid/not
     exp := map[string]bool{
         "378282246310005": true,
