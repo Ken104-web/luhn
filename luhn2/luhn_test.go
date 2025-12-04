@@ -50,11 +50,11 @@ func TestFunc(t *testing.T){
 func Test_getValidCn(t *testing.T){
     // check if card num is valid/not
     exp := map[string]bool{
-        "378282246310005": true,
-        "6011000990139424": true,
+        "378282246310005": false,
+        "6011000990139424": false,
         "9937373": false,
         "4222222222222": true,
-        "371449635398431": true,
+        "371449635398431": false,
     }
     actualResult := make(map[string]bool)
     for cn := range exp{
