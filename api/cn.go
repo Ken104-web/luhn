@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"luhn/pattern"
+	// "luhn/pattern"
     "net/http"
     "github.com/Ken104-web/luhn/tree/master/luhn2"
 

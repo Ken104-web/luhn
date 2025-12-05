@@ -9,8 +9,7 @@ func TestFunc(t *testing.T){
     validNum := []struct {
         cardNumber string
         expected   string
-    }{
-         // 68431579246,
+    }{ 
          {"4719928465537204", VISA},
          {"5574503916824457", DISCOVER},
          {"6364578220135794", MASTERCARD},
