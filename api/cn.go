@@ -4,8 +4,11 @@ import (
 	"encoding/json"
 	// "luhn/pattern"
     "net/http"
-    "github.com/Ken104-web/luhn/tree/master/luhn2"
 
+
+
+    "github.com/Ken104-web/luhn/luhn2"
+    "github.com/Ken104-web/luhn/pattern"
 )
 
 func CardNum(w http.ResponseWriter, r *http.Request) {
